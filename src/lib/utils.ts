@@ -1,6 +1,16 @@
-import { clsx, type ClassValue } from "clsx"
-import { twMerge } from "tailwind-merge"
+import { clsx, type ClassValue } from 'clsx';
+import { twMerge } from 'tailwind-merge';
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
+  return twMerge(clsx(inputs));
+}
+
+export async function sleep(ms = 1000) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+export function errorChance(posibility = 0.1, message = 'Error chance message') {
+  if (Math.random() < posibility) {
+    throw new Error(message);
+  }
 }
