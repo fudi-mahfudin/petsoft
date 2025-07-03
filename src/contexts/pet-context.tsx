@@ -2,7 +2,7 @@
 
 import { addPet, deletePet, editPet } from '@/actions/pet-action';
 import { Pet, PetEssentials } from '@/lib/types';
-import { createContext, useContext, useOptimistic, useState } from 'react';
+import { createContext, startTransition, useContext, useOptimistic, useState } from 'react';
 import { toast } from 'sonner';
 
 interface TPetContext {
@@ -37,12 +37,14 @@ export function PetContextProvider({
   };
 
   const handleCheckoutPet = async (id: Pet['id']) => {
-    setOptimisticPets((prev) => prev.filter((p) => p.id !== id));
-    setSelectedPetId(null);
+    startTransition(() => {
+      setOptimisticPets((prev) => prev.filter((p) => p.id !== id));
+      setSelectedPetId(null);
+    });
     const result = await deletePet(id);
 
     if (result?.error) {
-      toast.warning(result.error, { duration: Infinity });
+      toast.error(result.error, { duration: Infinity });
     }
   };
 
@@ -57,7 +59,7 @@ export function PetContextProvider({
     const result = await addPet(pet);
 
     if (result?.error) {
-      toast.warning(result.error, { duration: Infinity });
+      toast.error(result.error, { duration: Infinity });
     }
   };
 
@@ -74,7 +76,7 @@ export function PetContextProvider({
     const result = await editPet(petId, pet);
 
     if (result?.error) {
-      toast.warning(result.error, { duration: Infinity });
+      toast.error(result.error, { duration: Infinity });
     }
   };
 
