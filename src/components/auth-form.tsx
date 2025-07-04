@@ -1,3 +1,4 @@
+import { logIn } from '@/actions/auth-action';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
@@ -8,7 +9,7 @@ export default function AuthForm({
   variant: 'login' | 'signup';
 }) {
   return (
-    <form className="flex flex-col gap-y-5">
+    <form action={logIn} className="flex flex-col gap-y-5">
       <div className="space-y-1">
         <Label htmlFor="email">Email</Label>
         <Input id="email" name="email" type="email" required maxLength={100} />
