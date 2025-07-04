@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 export default function SignupPage() {
   return (
-    <main className="bg-custom-10 min-w-96 p-5 rounded-md shadow-sm">
+    <main className="bg-teal-100 min-w-96 p-5 rounded-md shadow-sm">
       <H1 className="text-center">Sign Up</H1>
       <AuthForm variant="signup" />
 

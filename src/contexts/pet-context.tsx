@@ -2,7 +2,13 @@
 
 import { addPet, deletePet, editPet } from '@/actions/pet-action';
 import { Pet, PetEssentials } from '@/lib/types';
-import { createContext, startTransition, useContext, useOptimistic, useState } from 'react';
+import {
+  createContext,
+  startTransition,
+  useContext,
+  useOptimistic,
+  useState,
+} from 'react';
 import { toast } from 'sonner';
 
 interface TPetContext {
@@ -51,6 +57,7 @@ export function PetContextProvider({
   const handleAddPet = async (pet: PetEssentials) => {
     const newPet = {
       id: Date.now().toString(),
+      userId: '',
       ...pet,
       createdAt: new Date(),
       updatedAt: new Date(),
@@ -64,14 +71,8 @@ export function PetContextProvider({
   };
 
   const handleEditPet = async (petId: Pet['id'], pet: PetEssentials) => {
-    const updatedPet = {
-      ...pet,
-      id: petId,
-      updatedAt: new Date(),
-      createdAt: new Date(),
-    };
     setOptimisticPets((prev) =>
-      prev.map((p) => (p.id === petId ? updatedPet : p))
+      prev.map((p) => (p.id === petId ? { ...p, ...pet } : p))
     );
     const result = await editPet(petId, pet);
 

@@ -5,13 +5,20 @@ import { Toaster } from '@/components/ui/sonner';
 import { PetContextProvider } from '@/contexts/pet-context';
 import { SearchContextProvider } from '@/contexts/search-context';
 import { prismaDb } from '@/lib/db';
+import { checkAuth } from '@/lib/utils-server';
 
 export default async function AppLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const data = (await prismaDb.pet.findMany()) || [];
+  const session = await checkAuth();
+
+  const pets = await prismaDb.pet.findMany({
+    where: {
+      userId: session.user.id || '',
+    },
+  });
 
   return (
     <>
@@ -19,7 +26,7 @@ export default async function AppLayout({
       <div className="flex flex-col max-w-[1050px] mx-auto px-4 min-h-screen">
         <AppHeader />
         <SearchContextProvider>
-          <PetContextProvider data={data}>{children}</PetContextProvider>
+          <PetContextProvider data={pets}>{children}</PetContextProvider>
         </SearchContextProvider>
         <AppFooter />
       </div>
