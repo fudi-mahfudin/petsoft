@@ -1,5 +1,5 @@
 import 'server-only';
-import { auth } from './auth';
+import { auth } from './auth-edge';
 import { redirect } from 'next/navigation';
 
 export async function checkAuth() {

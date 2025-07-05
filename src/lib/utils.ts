@@ -6,7 +6,10 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export async function sleep(ms = 1000) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
+  if (process.env.NODE_ENV === 'development') {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+  return Promise.resolve();
 }
 
 export function errorChance(posibility = 0.1, message = 'Error chance message') {
