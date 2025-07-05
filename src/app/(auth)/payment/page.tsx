@@ -4,8 +4,10 @@ import { createCheckoutSession } from '@/actions/payment-action';
 import { H1 } from '@/components/typography';
 import { Button } from '@/components/ui/button';
 import { useSession } from 'next-auth/react';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useTransition } from 'react';
+import stripeExample from '@/assets/stripe-example.jpg';
 
 export default function PaymentPage({
   searchParams,
@@ -54,7 +56,7 @@ export default function PaymentPage({
           onClick={() =>
             startTransition(async () => {
               if (session?.user.hasAccess) {
-                router.push('/app/dashboard')
+                router.push('/app/dashboard');
               }
               await createCheckoutSession();
             })
@@ -75,6 +77,13 @@ export default function PaymentPage({
           Payment cancelled. Please try again.
         </p>
       )}
+
+      <Image
+        src={stripeExample}
+        alt="Stripe example"
+        width={415}
+        height={475}
+      />
     </main>
   );
 }
