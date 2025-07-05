@@ -1,1 +1,1 @@
-export const DEFAULT_PET_IMAGE = 'https://placehold.co/45/png';
+export const DEFAULT_PET_IMAGE = `${process.env.NEXT_PUBLIC_APP_URL}/images/default-avatar.png`;
