@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { User, Session } from 'next-auth';
 import type { JWT } from 'next-auth/jwt';
 

@@ -37,6 +37,7 @@ export default function PaymentPage({
     if (session?.user.hasAccess) {
       router.push('/app/dashboard');
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [session?.user.hasAccess]);
 
   return (
