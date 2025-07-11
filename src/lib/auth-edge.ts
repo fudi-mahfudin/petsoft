@@ -30,7 +30,7 @@ export const nextAuthEdgeConfig = {
 
         return true;
       }
-      if (!isProtectedRoute) {
+      if (!isProtectedRoute && !request.url.includes('/payment')) {
         return true;
       }
 

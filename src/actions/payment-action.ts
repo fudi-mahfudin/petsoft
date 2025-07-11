@@ -1,7 +1,6 @@
 'use server';
 
 import { checkAuth } from '@/lib/utils-server';
-import { redirect } from 'next/navigation';
 import Stripe from 'stripe';
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
@@ -23,8 +22,5 @@ export async function createCheckoutSession() {
     cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/payment?cancelled=true`,
   });
 
-  // redirect user
-  if (checkoutSession.url) {
-    redirect(checkoutSession.url);
-  }
+  return checkoutSession.url;
 }
